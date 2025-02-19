@@ -34,7 +34,7 @@ import java.util.*;
  *
  * To add the next point to the polygon, left click where you want it. 
  * To delete an existing point, right click on it. 
- * To move a point, drag it. It is not currently possible to insert a new    .
+ * To move a point, drag it. It is not currently possible to insert a new      .
  * point between two existing points; sorry.
  * 
  * If the editor is started from the command line, the output from a previous edit
