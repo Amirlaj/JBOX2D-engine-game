@@ -17,7 +17,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class Game {
 
 
-    /** Initialise a new Game. */
+    /**e Initialise a new Game. */
     public Game() {
 
         //1. make an empty game world
