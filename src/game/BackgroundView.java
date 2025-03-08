@@ -16,6 +16,6 @@ class BackgroundView extends UserView {
 
     @Override
     protected void paintBackground(Graphics2D g) {
-        g.drawImage(background, 0, 130, this);
+        g.drawImage(background, 0, 0, this.getWidth(), this.getHeight(), null);
     }
 }
