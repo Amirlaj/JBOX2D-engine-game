@@ -43,11 +43,12 @@ public class Game {
 
 
         //3. make a view to look into the game world
-        UserView view = new UserView(world, 500, 500);
+//        UserView view = new UserView(world, 500, 500);
 
 
         //optional: draw a 1-metre grid over the view
         // view.setGridResolution(1);
+        BackgroundView view = new BackgroundView(world, 500, 500);
 
 
         //4. create a Java window (frame) and add the game

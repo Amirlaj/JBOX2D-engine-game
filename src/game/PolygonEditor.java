@@ -56,6 +56,7 @@ import java.util.*;
  * 
  * lets you edit the polygon drawn in a previous session around the image yellow-bird.gif).
  */
+
 public class PolygonEditor extends JPanel
 {   private static double WIDTH = 500;
     private static double HEIGHT = 500;
