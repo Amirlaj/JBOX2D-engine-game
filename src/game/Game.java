@@ -10,6 +10,24 @@ import java.awt.*;
 import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+
+
+
+// the project have not finished
+// submitting my project in case of the rejection of the EC
+// it is going to be submitted again with full features in late submission.
+
+
+
+
+
+
+
+
+
 
 /**
  * Your main game entry point
@@ -19,33 +37,36 @@ public class Game {
 
     /**e Initialise a new Game. */
     public Game() {
-
-        //1. make an empty game world
-//        World world = new World();
-
-        //2. populate it with bodies (ex: platforms, collectibles, characters)
         GameWorld gameWorld = new GameWorld();
-        //make a character (with an overlaid image)
-        Shape studentShape = new BoxShape(1,2);
-        DynamicBody student = new DynamicBody(gameWorld, studentShape);
-        student.setPosition(new Vec2(4,-5));
-        student.addImage(new BodyImage("data/student.png", 4));
+
+        BackgroundView view = new BackgroundView(gameWorld, 600, 360);
 
         Coin coin = new Coin(gameWorld, new Vec2(0, -3));
 
-        Player1 player1 = new Player1(gameWorld);
-
-        // Add enemies
         Enemy enemy1 = new Enemy(gameWorld, new Vec2(-5, -5), "data/enemy1.png");
         Enemy enemy2 = new Enemy(gameWorld, new Vec2(7, -4), "data/enemy2.png");
 
+
+
+
+
+        //2. populate it with bodies (ex: platforms, collectibles, characters)
+        //make a character (with an overlaid image)
+//        Shape studentShape = new BoxShape(1,2);
+//        DynamicBody student = new DynamicBody(gameWorld, studentShape);
+//        student.setPosition(new Vec2(4,-5));
+//        student.addImage(new BodyImage("data/student.png", 4));
+
+
+
+
+
         //3. make a view to look into the game world
-//        UserView view = new UserView(world, 500, 500);
+//        UserView view = new UserView(gameWorld, 500, 500);
 
 
         //optional: draw a 1-metre grid over the view
         // view.setGridResolution(1);
-        BackgroundView view = new BackgroundView(gameWorld, 600, 360);
 
 
         //4. create a Java window (frame) and add the game
@@ -67,7 +88,10 @@ public class Game {
         //optional: uncomment this to make a debugging view
          JFrame debugView = new DebugViewer(gameWorld, 600, 360);
 
-        // start our game world simulation!
+
+        Player1 player1 = new Player1(gameWorld);
+        PlayerController controller = new PlayerController(player1);
+        frame.addKeyListener(controller);
         gameWorld.start();
     }
 

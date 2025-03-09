@@ -11,7 +11,7 @@ class BackgroundView extends UserView {
 
     public BackgroundView(World world, int width, int height) {
         super(world, width, height);
-        background = new ImageIcon("data/background.png").getImage(); // Ensure the path is correct
+        background = new ImageIcon("data/background.png").getImage();
     }
 
     @Override
