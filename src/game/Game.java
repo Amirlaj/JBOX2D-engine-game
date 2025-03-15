@@ -24,7 +24,9 @@ public class Game {
     public Game() {
         GameWorld gameWorld = new GameWorld();
 
-        BackgroundView view = new BackgroundView(gameWorld, 600, 360);
+        Player1 player1 = new Player1(gameWorld);
+
+        BackgroundView view = new BackgroundView(gameWorld, 600, 360, player1);
 
         Coin coin = new Coin(gameWorld, new Vec2(0, -3));
 
@@ -74,7 +76,6 @@ public class Game {
          JFrame debugView = new DebugViewer(gameWorld, 600, 360);
 
 
-        Player1 player1 = new Player1(gameWorld);
 
         PlayerController controller = new PlayerController(player1);
         frame.addKeyListener(controller);
@@ -82,6 +83,7 @@ public class Game {
 
         PlayerCollision collisionListener = new PlayerCollision(player1);
         player1.addCollisionListener(collisionListener);
+
 
         gameWorld.start();
 

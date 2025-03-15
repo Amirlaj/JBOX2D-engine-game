@@ -46,6 +46,13 @@ public class Player1 extends Walker {
     public int getHealth() {
         return health;
     }
+    public void increaseScore() {
+        score++;
+    }
+
+    public int getScore() {
+        return score;
+    }
 
 
 }

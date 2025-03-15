@@ -10,14 +10,15 @@ public class PlayerCollision implements CollisionListener {
         this.player = player;
     }
 
+
     @Override
     public void collide(CollisionEvent e) {
         if (e.getOtherBody() instanceof Coin) {
-            e.getOtherBody().destroy(); // Remove coin from the world
-            System.out.println("Coin collected!");
+            player.increaseScore();
+            e.getOtherBody().destroy();
         } else if (e.getOtherBody() instanceof Enemy) {
-            player.decreaseHealth(); // Decrease player's health
-            System.out.println("Hit by enemy! Health: " + player.getHealth());
+            player.decreaseHealth();
         }
     }
+
 }
