@@ -14,21 +14,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 
-
-
-// the project have not finished
-// submitting my project in case of the rejection of the EC
-// it is going to be submitted again with full features in late submission.
-
-
-
-
-
-
-
-
-
-
 /**
  * Your main game entry point
  */
@@ -90,9 +75,17 @@ public class Game {
 
 
         Player1 player1 = new Player1(gameWorld);
+
         PlayerController controller = new PlayerController(player1);
         frame.addKeyListener(controller);
+
+
+        PlayerCollision collisionListener = new PlayerCollision(player1);
+        player1.addCollisionListener(collisionListener);
+
         gameWorld.start();
+
+
     }
 
     /** Run the game. */

@@ -31,5 +31,5 @@ public class PlayerController implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {} // Not used
+    public void keyTyped(KeyEvent e) {}
 }

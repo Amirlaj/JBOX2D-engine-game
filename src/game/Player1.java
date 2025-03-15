@@ -35,6 +35,19 @@ public class Player1 extends Walker {
         this.setLinearVelocity(new Vec2(0, this.getLinearVelocity().y));
     }
 
+    public void decreaseHealth() {
+        health--;
+        if (health <= 0) {
+            System.out.println("Player is dead!");
+            this.destroy(); // Remove the player if health is 0
+        }
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+
 }
 
 

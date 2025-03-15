@@ -21,10 +21,10 @@ public class GameWorld extends World {
         platform1.setPosition(new Vec2(-8, -4f));
 
         StaticBody platform2 = new StaticBody(this, platformShape);
-        platform2.setPosition(new Vec2(8, -4f));
+        platform2.setPosition(new Vec2(-8, 6f));
 
         StaticBody platform3 = new StaticBody(this, platformShape);
-        platform3.setPosition(new Vec2(5, -2f)); // Adjust placement
+        platform3.setPosition(new Vec2(5, -2f));
 
     }
 }
