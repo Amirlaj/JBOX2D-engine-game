@@ -9,14 +9,12 @@ import java.awt.*;
 class BackgroundView extends UserView {
     private Image background;
     private Player1 player;
-    private Image heartIcon;
     private Image coinIcon;
 
     public BackgroundView(World world, int width, int height, Player1 player) {
         super(world, width, height);
         this.player = player;
         background = new ImageIcon("data/background.png").getImage();
-        heartIcon = new ImageIcon("data/heart.png").getImage();
         coinIcon = new ImageIcon("data/coin.png").getImage();
     }
 
@@ -27,14 +25,32 @@ class BackgroundView extends UserView {
 
     @Override
     protected void paintForeground(Graphics2D g) {
-        // Draw player's health as heart icons
-        for (int i = 0; i < player.getHealth(); i++) {
-            g.drawImage(heartIcon, 10 + (i * 30), 10, 25, 25, null);
+        int maxHealth = 3;
+        int currentHealth = player.getHealth();
+        int barWidth = 150;
+        int barHeight = 20;
+        int x = 10;
+        int y = 10;
+
+        g.setColor(Color.GRAY);
+        g.fillRect(x, y, barWidth, barHeight);
+
+        int currentBarWidth = (int) ((currentHealth / (float) maxHealth) * barWidth);
+
+        if (currentHealth > 2) {
+            g.setColor(Color.GREEN);
+        } else if (currentHealth == 2) {
+            g.setColor(Color.YELLOW);
+        } else {
+            g.setColor(Color.RED);
         }
 
-        // Display collected coin count with an icon
+        g.fillRect(x, y, currentBarWidth, barHeight);
+
+        g.setColor(Color.WHITE);
+        g.drawString("Health: " + currentHealth + " / " + maxHealth, x + 40, y + 15);
+
         g.drawImage(coinIcon, 10, 50, 25, 25, null);
-        g.setFont(new Font("Arial", Font.BOLD, 20));
         g.setColor(Color.WHITE);
         g.drawString("x " + player.getScore(), 40, 70);
     }

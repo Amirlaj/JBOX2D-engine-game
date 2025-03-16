@@ -6,8 +6,8 @@ import org.jbox2d.common.Vec2;
 
 public class Player1 extends Walker {
 
-    private static final float SPEED = 5;
-    private static final float JUMP = 15;
+    private static final float SPEED = 7;
+    private static final float JUMP = 11;
     private int health = 3;
     private int score = 0;
 
@@ -19,11 +19,9 @@ public class Player1 extends Walker {
         super(gameWorld, new BoxShape(0.6f, 1));
         this.setPosition(new Vec2(4, -5));
 
-        // Load both images
         rightImage = new BodyImage("data/player1.png", 3.5f);
         leftImage = new BodyImage("data/player1_left.png", 3.5f); // Ensure this file exists
 
-        // Set default image (right-facing)
         currentImage = rightImage;
         this.addImage(currentImage);
     }
@@ -69,17 +67,17 @@ public class Player1 extends Walker {
     }
 
     private void faceLeft() {
-        if (currentImage != leftImage) { // Only switch if necessary
-            this.removeAllImages(); // Remove existing images
-            this.addImage(leftImage); // Apply left-facing image
+        if (currentImage != leftImage) {
+            this.removeAllImages();
+            this.addImage(leftImage);
             currentImage = leftImage;
         }
     }
 
     private void faceRight() {
-        if (currentImage != rightImage) { // Only switch if necessary
-            this.removeAllImages(); // Remove existing images
-            this.addImage(rightImage); // Apply right-facing image
+        if (currentImage != rightImage) {
+            this.removeAllImages();
+            this.addImage(rightImage);
             currentImage = rightImage;
         }
     }

@@ -20,13 +20,13 @@ public class GameWorld extends World {
         platform1.setPosition(new Vec2(-10, -2));
 
         StaticBody platform2 = new StaticBody(this, platformShape);
-        platform2.setPosition(new Vec2(3, 3));
+        platform2.setPosition(new Vec2(6, 3));
 
         StaticBody platform3 = new StaticBody(this, platformShape);
-        platform3.setPosition(new Vec2(9, -12));
+        platform3.setPosition(new Vec2(3, 0));
 
         StaticBody platform4 = new StaticBody(this, platformShape);
-        platform3.setPosition(new Vec2(11, 5));
+        platform4.setPosition(new Vec2(-11, 5));
 
     }
 }
