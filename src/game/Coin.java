@@ -7,6 +7,6 @@ public class Coin extends DynamicBody {
     public Coin(GameWorld gameWorld, Vec2 position) {
         super(gameWorld, new CircleShape(0.5f));
         this.setPosition(position);
-        this.addImage(new BodyImage("data/coin.png", 1));
+        this.addImage(new BodyImage("data/coin.png", 2));
     }
 }

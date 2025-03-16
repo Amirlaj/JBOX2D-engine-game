@@ -30,8 +30,8 @@ public class Game {
 
         Coin coin = new Coin(gameWorld, new Vec2(0, -3));
 
-        Enemy enemy1 = new Enemy(gameWorld, new Vec2(-5, -5), "data/enemy1.png");
-        Enemy enemy2 = new Enemy(gameWorld, new Vec2(7, -4), "data/enemy2.png");
+        Enemy enemy1 = new Enemy(gameWorld, new Vec2(3, 3), "data/enemy1.png");
+        Enemy enemy2 = new Enemy(gameWorld, new Vec2(-12, -1), "data/enemy2.png");
 
 
 
