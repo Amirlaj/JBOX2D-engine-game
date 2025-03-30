@@ -6,8 +6,8 @@ import org.jbox2d.common.Vec2;
 
 public class Player1 extends Walker {
 
-    private static final float SPEED = 7;
-    private static final float JUMP = 11;
+    private static final float SPEED = 5;
+    private static final float JUMP = 8;
     private int health = 3;
     private int score = 0;
 

@@ -17,16 +17,18 @@ public class GameWorld extends World {
 
         Shape platformShape = new BoxShape(4, 0.2f);
         StaticBody platform1 = new StaticBody(this, platformShape);
-        platform1.setPosition(new Vec2(-10, -2));
+        platform1.setPosition(new Vec2(-10, -4));
 
         StaticBody platform2 = new StaticBody(this, platformShape);
-        platform2.setPosition(new Vec2(6, 3));
+        platform2.setPosition(new Vec2(6, 5));
 
         StaticBody platform3 = new StaticBody(this, platformShape);
-        platform3.setPosition(new Vec2(3, 0));
+        platform3.setPosition(new Vec2(5, 0));
 
         StaticBody platform4 = new StaticBody(this, platformShape);
-        platform4.setPosition(new Vec2(-11, 5));
+        platform4.setPosition(new Vec2(-11, 7));
 
+        StaticBody platform5 = new StaticBody(this, platformShape);
+        platform5.setPosition(new Vec2(-8, 2));
     }
 }
