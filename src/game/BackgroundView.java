@@ -2,10 +2,10 @@ package game;
 
 import city.cs.engine.World;
 import city.cs.engine.UserView;
+import org.jbox2d.common.Vec2;
 
 import javax.swing.*;
 import java.awt.*;
-
 class BackgroundView extends UserView {
     private Image background;
     private Player1 player;
@@ -17,6 +17,12 @@ class BackgroundView extends UserView {
         background = new ImageIcon("data/background.png").getImage();
         coinIcon = new ImageIcon("data/coin.png").getImage();
     }
+    @Override
+    public Vec2 getCentre() {
+        Vec2 pos = player.getPosition();
+        return new Vec2(pos.x + 2f, pos.y); // shift the view 2 units ahead
+    }
+
 
     @Override
     protected void paintBackground(Graphics2D g) {

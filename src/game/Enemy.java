@@ -19,7 +19,6 @@ public class Enemy extends Walker {
     }
 
     public void patrol() {
-        // Switch direction if enemy hits bounds
         if (movingRight) {
             this.setLinearVelocity(new Vec2(speed, getLinearVelocity().y));
             if (this.getPosition().x > rightBound) {

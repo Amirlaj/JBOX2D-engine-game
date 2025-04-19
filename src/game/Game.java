@@ -25,6 +25,7 @@ public class Game {
         Player1 player1 = new Player1(gameWorld);
 
         BackgroundView view = new BackgroundView(gameWorld, 600, 360, player1);
+//        view.setCentre(player1.getPosition());
 
         Coin coin = new Coin(gameWorld, new Vec2(0, -3));
 
