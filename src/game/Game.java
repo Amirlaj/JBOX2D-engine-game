@@ -99,7 +99,7 @@ public class Game {
 
 
         // starting the game world
-//        gameWorld.start();
+        gameWorld.start();
 
 
     }

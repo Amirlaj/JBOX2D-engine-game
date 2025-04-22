@@ -1,16 +1,16 @@
-package game;
+package game.gamelevels;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameLevels {
+public class GameLevel {
     protected String levelName; // Name of the level
     protected String background; // Background or theme of this level
     protected int goalScore; // The score required to complete the level
     protected List<Object> entities; // List of game objects like enemies or coins
 
     // Constructor
-    public GameLevels(String levelName, String background, int goalScore) {
+    public GameLevel(String levelName, String background, int goalScore) {
         this.levelName = levelName;
         this.background = background;
         this.goalScore = goalScore;
@@ -32,6 +32,9 @@ public class GameLevels {
     public void render() {
         System.out.println("Rendering the background: " + background);
     }
+
+
+
 
     // Add an entity (enemy, coin, etc.)
     public void addEntity(Object entity) {
