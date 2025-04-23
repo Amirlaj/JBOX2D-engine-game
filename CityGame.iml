@@ -8,12 +8,12 @@
     <orderEntry type="jdk" jdkName="23" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
-      <library name="city engine">
+      <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/CityEngine40/CityEngine.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/CityEngine.jar!/" />
         </CLASSES>
         <JAVADOC>
-          <root url="file://$USER_HOME$/Downloads/CityEngine40/javadoc" />
+          <root url="file://$USER_HOME$/Downloads/javadoc" />
         </JAVADOC>
         <SOURCES />
       </library>

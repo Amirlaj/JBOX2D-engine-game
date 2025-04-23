@@ -2,6 +2,7 @@ package game;
 
 import city.cs.engine.Walker;
 import city.cs.engine.*;
+import game.gamelevels.GameLevel;
 import org.jbox2d.common.Vec2;
 
 public class Player1 extends Walker {
@@ -15,7 +16,7 @@ public class Player1 extends Walker {
     private BodyImage leftImage;
     private BodyImage currentImage; // Track the currently applied image
 
-    public Player1(GameWorld gameWorld) {
+    public Player1(GameLevel gameWorld) {
         super(gameWorld, new BoxShape(0.6f, 1));
         this.setPosition(new Vec2(4, -5));
 

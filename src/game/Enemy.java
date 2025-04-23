@@ -2,6 +2,7 @@ package game;
 
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
+import game.gamelevels.GameLevel;
 
 public class Enemy extends Walker {
 
@@ -10,7 +11,7 @@ public class Enemy extends Walker {
     private float speed = 2f;
     private boolean movingRight = true;
 
-    public Enemy(GameWorld world, Vec2 position, String imagePath, float leftBound, float rightBound) {
+    public Enemy(GameLevel world, Vec2 position, String imagePath, float leftBound, float rightBound) {
         super(world, new BoxShape(0.6f, 1));  // enemy size
         this.setPosition(position);
         this.leftBound = leftBound;

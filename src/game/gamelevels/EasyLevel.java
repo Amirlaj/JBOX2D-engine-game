@@ -1,21 +1,37 @@
 package game.gamelevels;
 
+import city.cs.engine.*;
 import game.Coin;
 import game.Enemy;
 import org.jbox2d.common.Vec2;
 
+/**
+ * EasyLevel sets up a simple level with coins and one enemy.
+ */
 public class EasyLevel extends GameLevel {
 
     public EasyLevel() {
-        super("Easy Level", "easy_background.png", 5); // name, background, goalScore
+        super("Easy Level", "easy_background.png", 5); // Goal: collect 5 coins
     }
 
     @Override
     public void initialize() {
-        super.initialize(); // Print info and background setup
+        // Set player start position
+        getPlayer().setPosition(new Vec2(0, -10));
 
-        // Add entities like coins and enemies
-        addEntity(new Coin(null, new Vec2(0, -3))); // Replace `null` with the game world
-        addEntity(new Enemy(null, new Vec2(3, 3), "data/enemy1.png", 1, 6)); // Same here
+        // Ground platform
+        Shape groundShape = new BoxShape(15, 0.5f);
+        StaticBody ground = new StaticBody(this, groundShape);
+        ground.setPosition(new Vec2(0, -11));
+
+        // Add a few coins
+        new Coin(this, new Vec2(-6, -5));
+        new Coin(this, new Vec2(-3, -5));
+        new Coin(this, new Vec2(0, -5));
+        new Coin(this, new Vec2(3, -5));
+        new Coin(this, new Vec2(6, -5));
+
+        // Add a single enemy
+        new Enemy(this, new Vec2(4, 0), "data/enemy1.png", 2, 7);
     }
 }
