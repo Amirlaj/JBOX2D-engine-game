@@ -2,109 +2,87 @@ package game;
 
 import city.cs.engine.*;
 import game.gamelevels.*;
-import game.gamelevels.MediumLevel;
 import org.jbox2d.common.Vec2;
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.*;
 
 /**
- * Your main game entry point
+ * Your main game entry point with integrated start menu.
  */
 public class Game {
-
 
     private GameLevel currentLevel;
     private BackgroundView view;
     private PlayerController controller;
-    private int levelNumber = 1;
-
     private SoundClip gameMusic;
 
-    /** Initialise a new Game. */
-    public Game() {
+    private JFrame frame;
+    private JPanel mainPanel;
+    private CardLayout cardLayout;
 
-        // gameWorld initiallization
-//        GameWorld gameWorld = new GameWorld();
+    private final String MENU = "Menu";
+    private final String GAME = "Game";
+    private int levelNumber = 1;
 
-        loadLevel(levelNumber);
-
-        // player initiallization
-        Player1 player1 = currentLevel.getPlayer();
-
-        // main game view
-//        view = new BackgroundView(currentLevel, 600, 360, currentLevel.getPlayer());
-//        view.setCentre(player1.getPosition());
-
-
-        // Coin
-//        Coin coin = new Coin(currentLevel, new Vec2(0, -3));
-
-
-        // enemy initialisation and patrol mechanic
-        Enemy enemy1 = new Enemy(currentLevel, new Vec2(3, 3), "data/enemy1.png", 1, 6);
-        Enemy enemy2 = new Enemy(currentLevel, new Vec2(-12, -1), "data/enemy2.png", -15, -8);
-        new javax.swing.Timer(100, e -> {
-            enemy1.patrol();
-            enemy2.patrol();
-        }).start();
-
-
-        // dynamic body
-        DynamicBody bod = new DynamicBody(currentLevel,new PolygonShape(-0.73f,-0.81f, -0.73f,0.54f, -0.02f,1.16f, 0.51f,0.62f, 0.52f,-0.9f, -0.19f,-1.17f));
-
-
-
-
-        //3. make a view to look into the game world
-//        UserView view = new UserView(gameWorld, 500, 500);
-
-
-
-
-        //optional: draw a 1-metre grid over the view
-         view.setGridResolution(1);
-
-
-        // create a Java window (frame) and add the game
-        final JFrame frame = new JFrame("City Game");
-        frame.add(view);
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationByPlatform(true);
-        frame.setResizable(false);
-        frame.pack();
-        frame.setVisible(true);
-
-        //optional: debugging view
-         JFrame debugView = new DebugViewer(currentLevel, 600, 360);
-
-
-
-         // player cotrller
-        controller = new PlayerController(player1);
-        frame.addKeyListener(controller);
-
-
-        // collision handling
-        PlayerCollision collisionListener = new PlayerCollision(player1);
-        player1.addCollisionListener(collisionListener);
-
-        // playing music
-//        try {
-//            gameMusic = new SoundClip("data/gametheme.wav");
-//            gameMusic.loop();
-//        } catch (UnsupportedAudioFileException|IOException|LineUnavailableException e) {
-//
-//            System.out.println(e);
-//        }
-//
-
-
-        // starting the game world
-        currentLevel.start();
+    /** Launch the game */
+    public static void main(String[] args) {
+        new Game();
     }
 
+    /** Constructor: builds menu and game container */
+    public Game() {
+        frame = new JFrame("City Game");
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
 
+        // Add menu panel to the layout
+        mainPanel.add(createMenuPanel(), MENU);
+
+        frame.setContentPane(mainPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 360);
+        frame.setLocationRelativeTo(null); // center on screen
+        frame.setResizable(false);
+        frame.setVisible(true);
+
+        cardLayout.show(mainPanel, MENU); // show menu first
+    }
+
+    /** Build the start menu panel */
+    private JPanel createMenuPanel() {
+        JPanel menuPanel = new JPanel(new BorderLayout());
+
+        JLabel title = new JLabel("City Game", SwingConstants.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 32));
+        menuPanel.add(title, BorderLayout.NORTH);
+
+        JButton startButton = new JButton("Start Game");
+        startButton.setFont(new Font("Arial", Font.PLAIN, 24));
+        startButton.addActionListener(e -> {
+            loadGamePanel();                       // load game content
+            cardLayout.show(mainPanel, GAME);      // switch to game screen
+        });
+
+        menuPanel.add(startButton, BorderLayout.CENTER);
+        return menuPanel;
+    }
+
+    /** Load the game logic and UI into the panel */
+    private void loadGamePanel() {
+        loadLevel(levelNumber);
+        setupView();
+        setupInput();
+        setupEnemies();
+        setupDebugView();
+        setupCollisionHandling();
+        view.setGridResolution(1);
+        currentLevel.start();
+
+        mainPanel.add(view, GAME); // Add game view as a card
+        frame.addKeyListener(controller); // Controls now work
+    }
+
+    /** Load a level (Easy, Medium, etc.) */
     public void loadLevel(int levelNum) {
         if (levelNum == 1) {
             currentLevel = new EasyLevel();
@@ -118,24 +96,53 @@ public class Game {
         currentLevel.initialize();
 
         Player1 player = currentLevel.getPlayer();
-
-        // If view is null (first level), create it
         if (view == null) {
             view = new BackgroundView(currentLevel, 600, 360, player);
         } else {
             view.setWorld(currentLevel);
         }
-
-        controller = new PlayerController(player);
-        player.addCollisionListener(new PlayerCollision(player));
-
-        currentLevel.start();
     }
 
+    /** Setup the camera and display */
+    private void setupView() {
+        view.setGridResolution(1);
+    }
 
-    /** Run the game. */
-    public static void main(String[] args) {
+    /** Setup input for player control */
+    private void setupInput() {
+        Player1 player = currentLevel.getPlayer();
+        controller = new PlayerController(player);
+    }
 
-        new Game();
+    /** Add and animate enemies */
+    private void setupEnemies() {
+        Enemy enemy1 = new Enemy(currentLevel, new Vec2(3, 3), "data/enemy1.png", 1, 6);
+        Enemy enemy2 = new Enemy(currentLevel, new Vec2(-12, -1), "data/enemy2.png", -15, -8);
+
+        new javax.swing.Timer(100, e -> {
+            enemy1.patrol();
+            enemy2.patrol();
+        }).start();
+    }
+
+    /** Show debug view (optional) */
+    private void setupDebugView() {
+        new DebugViewer(currentLevel, 600, 360);
+    }
+
+    /** Setup collisions for coins/enemies */
+    private void setupCollisionHandling() {
+        Player1 player = currentLevel.getPlayer();
+        player.addCollisionListener(new PlayerCollision(player));
+    }
+
+    /** Optional: Play background music */
+    private void setupMusic() {
+        try {
+            gameMusic = new SoundClip("data/gametheme.wav");
+            gameMusic.loop();
+        } catch (Exception e) {
+            System.err.println("Error loading music: " + e.getMessage());
+        }
     }
 }

@@ -2,7 +2,6 @@ package game.gamelevels;
 
 import city.cs.engine.World;
 import game.Player1;
-
 import java.util.ArrayList;
 import java.util.List;
 

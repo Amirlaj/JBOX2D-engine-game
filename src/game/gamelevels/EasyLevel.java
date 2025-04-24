@@ -1,7 +1,6 @@
 package game.gamelevels;
 
 import city.cs.engine.*;
-import game.Coin;
 import game.Enemy;
 import org.jbox2d.common.Vec2;
 
@@ -24,12 +23,6 @@ public class EasyLevel extends GameLevel {
         StaticBody ground = new StaticBody(this, groundShape);
         ground.setPosition(new Vec2(0, -11));
 
-        // Add a few coins
-        new Coin(this, new Vec2(-6, -5));
-        new Coin(this, new Vec2(-3, -5));
-        new Coin(this, new Vec2(0, -5));
-        new Coin(this, new Vec2(3, -5));
-        new Coin(this, new Vec2(6, -5));
 
         // Add a single enemy
         new Enemy(this, new Vec2(4, 0), "data/enemy1.png", 2, 7);
