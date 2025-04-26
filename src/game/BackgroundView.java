@@ -2,7 +2,7 @@ package game;
 
 import city.cs.engine.World;
 import city.cs.engine.UserView;
-import game.Player1.Player1;
+import game.characters.Player1;
 import org.jbox2d.common.Vec2;
 
 import javax.swing.*;

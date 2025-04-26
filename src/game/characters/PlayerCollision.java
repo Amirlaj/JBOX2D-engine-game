@@ -1,4 +1,4 @@
-package game.Player1;
+package game.characters;
 
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;

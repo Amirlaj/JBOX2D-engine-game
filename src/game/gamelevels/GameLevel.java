@@ -1,7 +1,7 @@
 package game.gamelevels;
 
 import city.cs.engine.World;
-import game.Player1.Player1;
+import game.characters.Player1;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +21,13 @@ public abstract class GameLevel extends World {
         this.background = background;
         this.goalScore = goalScore;
         this.entities = new ArrayList<>();
-        this.player = new Player1(this);
         this.requiredKills = requiredKills;
 
 
+    }
+
+    public void setPlayer(Player1 player) {
+        this.player = player;
     }
 
     // Get the player object

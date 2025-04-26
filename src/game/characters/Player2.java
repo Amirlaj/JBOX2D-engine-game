@@ -1,4 +1,4 @@
-package game.Player1;
+package game.characters;
 
 import city.cs.engine.Walker;
 import city.cs.engine.*;
@@ -6,7 +6,7 @@ import game.Bullet;
 import game.gamelevels.GameLevel;
 import org.jbox2d.common.Vec2;
 
-public class Player1 extends Walker {
+public class Player2 extends Walker {
 
     private static final float SPEED = 5;
     private static final float JUMP = 8;
@@ -20,7 +20,7 @@ public class Player1 extends Walker {
     private int enemyKills = 0;
 
 
-    public Player1(GameLevel gameWorld) {
+    public Player2(GameLevel gameWorld) {
         super(gameWorld, new BoxShape(0.6f, 1));
         this.setPosition(new Vec2(4, -5));
 
