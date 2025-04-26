@@ -1,7 +1,8 @@
-package game;
+package game.Player1;
 
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
+import game.Enemy;
 
 /**
  * Handles collisions for the player, excluding coins.

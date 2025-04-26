@@ -1,7 +1,7 @@
 package game.gamelevels;
 
 import city.cs.engine.World;
-import game.Player1;
+import game.Player1.Player1;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +12,19 @@ public abstract class GameLevel extends World {
     protected int goalScore;
     protected List<Object> entities;
     protected Player1 player;
+    protected int requiredKills;
 
-    public GameLevel(String levelName, String background, int goalScore) {
+
+    public GameLevel(String levelName, String background, int goalScore, int requiredKills) {
+
         this.levelName = levelName;
         this.background = background;
         this.goalScore = goalScore;
         this.entities = new ArrayList<>();
         this.player = new Player1(this);
+        this.requiredKills = requiredKills;
+
+
     }
 
     // Get the player object
@@ -36,8 +42,9 @@ public abstract class GameLevel extends World {
     }
 
     public boolean isLevelComplete() {
-        return getPlayer().getScore() >= goalScore;
+        return player.getEnemyKills() >= requiredKills;
     }
+
 
     // Optional render method (if needed)
     public void render() {

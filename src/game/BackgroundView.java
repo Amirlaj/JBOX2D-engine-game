@@ -2,6 +2,7 @@ package game;
 
 import city.cs.engine.World;
 import city.cs.engine.UserView;
+import game.Player1.Player1;
 import org.jbox2d.common.Vec2;
 
 import javax.swing.*;
@@ -52,12 +53,8 @@ class BackgroundView extends UserView {
         }
 
         g.fillRect(x, y, currentBarWidth, barHeight);
-
         g.setColor(Color.WHITE);
         g.drawString("Health: " + currentHealth + " / " + maxHealth, x + 40, y + 15);
-
-        g.drawImage(coinIcon, 10, 50, 25, 25, null);
-        g.setColor(Color.WHITE);
-        g.drawString("x " + player.getScore(), 40, 70);
     }
+
 }

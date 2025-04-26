@@ -1,7 +1,8 @@
-package game;
+package game.Player1;
 
 import city.cs.engine.Walker;
 import city.cs.engine.*;
+import game.Bullet;
 import game.gamelevels.GameLevel;
 import org.jbox2d.common.Vec2;
 
@@ -15,6 +16,9 @@ public class Player1 extends Walker {
     private BodyImage rightImage;
     private BodyImage leftImage;
     private BodyImage currentImage; // Track the currently applied image
+
+    private int enemyKills = 0;
+
 
     public Player1(GameLevel gameWorld) {
         super(gameWorld, new BoxShape(0.6f, 1));
@@ -82,4 +86,20 @@ public class Player1 extends Walker {
             currentImage = rightImage;
         }
     }
+
+    public void shoot() {
+        Vec2 position = getPosition().add(currentImage == rightImage ? new Vec2(1.2f, 0) : new Vec2(-1.2f, 0));
+        boolean facingRight = currentImage == rightImage;
+        new Bullet(this.getWorld(), position, facingRight);
+    }
+
+    public void incrementKills() {
+        enemyKills++;
+    }
+
+    public int getEnemyKills() {
+        return enemyKills;
+    }
+
+
 }

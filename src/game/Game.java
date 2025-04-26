@@ -1,6 +1,9 @@
 package game;
 
 import city.cs.engine.*;
+import game.Player1.Player1;
+import game.Player1.PlayerCollision;
+import game.Player1.PlayerController;
 import game.gamelevels.*;
 import org.jbox2d.common.Vec2;
 import javax.swing.*;
@@ -80,10 +83,21 @@ public class Game {
 
         mainPanel.add(view, GAME); // Add game view as a card
         frame.addKeyListener(controller); // Controls now work
+        new javax.swing.Timer(1000, e -> {
+            if (currentLevel.isLevelComplete()) {
+                levelNumber++;
+                loadLevel(levelNumber);
+            }
+        }).start();
+
     }
 
     /** Load a level (Easy, Medium, etc.) */
     public void loadLevel(int levelNum) {
+        if (currentLevel != null) {
+            currentLevel.stop(); // Stop the current level
+        }
+
         if (levelNum == 1) {
             currentLevel = new EasyLevel();
         } else if (levelNum == 2) {
@@ -101,6 +115,8 @@ public class Game {
         } else {
             view.setWorld(currentLevel);
         }
+
+        currentLevel.start();
     }
 
     /** Setup the camera and display */

@@ -10,18 +10,18 @@ import org.jbox2d.common.Vec2;
 public class EasyLevel extends GameLevel {
 
     public EasyLevel() {
-        super("Easy Level", "easy_background.png", 5); // Goal: collect 5 coins
+        super("Easy Level", "easy_background.png", 0, 3); // now using kill goal only
     }
 
     @Override
     public void initialize() {
         // Set player start position
-        getPlayer().setPosition(new Vec2(0, -10));
+        getPlayer().setPosition(new Vec2(0, -5));
 
         // Ground platform
         Shape groundShape = new BoxShape(15, 0.5f);
         StaticBody ground = new StaticBody(this, groundShape);
-        ground.setPosition(new Vec2(0, -11));
+        ground.setPosition(new Vec2(0, -8));
 
 
         // Add a single enemy
