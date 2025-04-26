@@ -51,13 +51,14 @@ public class Player2 extends Walker {
         this.setLinearVelocity(new Vec2(0, this.getLinearVelocity().y));
     }
 
-    public void decreaseHealth() {
-        health--;
+    public void decreaseHealth(int amount) {
+        health -= amount;
         if (health <= 0) {
             System.out.println("Player is dead!");
             this.destroy();
         }
     }
+
 
     public int getHealth() {
         return health;
@@ -90,8 +91,9 @@ public class Player2 extends Walker {
     public void shoot() {
         Vec2 position = getPosition().add(currentImage == rightImage ? new Vec2(1.2f, 0) : new Vec2(-1.2f, 0));
         boolean facingRight = currentImage == rightImage;
-        new Bullet(this.getWorld(), position, facingRight);
+        new Bullet(this.getWorld(), position, facingRight); // ✅ only 3 args
     }
+
 
     public void incrementKills() {
         enemyKills++;

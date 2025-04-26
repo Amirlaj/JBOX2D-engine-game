@@ -1,6 +1,8 @@
 package game;
 
 import city.cs.engine.*;
+import game.characters.Player1;
+import game.characters.Player2;
 import org.jbox2d.common.Vec2;
 
 public class Bullet extends DynamicBody {
@@ -19,7 +21,6 @@ public class Bullet extends DynamicBody {
         setGravityScale(0);
         setBullet(true);
 
-        this.addCollisionListener(new BulletCollision()); // 💥
+        this.addCollisionListener(new BulletCollision()); // no need to pass players
     }
-
 }

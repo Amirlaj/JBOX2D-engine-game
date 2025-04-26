@@ -1,63 +1,54 @@
 package game;
 
 import city.cs.engine.*;
-import game.characters.Player1;
-import game.characters.Player2Controller;
-import game.characters.PlayerCollision;
-import game.characters.PlayerController;
-import game.characters.Player2;
+import game.characters.*;
 import game.gamelevels.*;
 import org.jbox2d.common.Vec2;
+
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Your main game entry point with integrated start menu.
- */
 public class Game {
 
     private GameLevel currentLevel;
     private BackgroundView view;
-    private PlayerController controller;
-    private SoundClip gameMusic;
+    private PlayerController controller1;
+    private Player2Controller controller2;
 
     private JFrame frame;
     private JPanel mainPanel;
     private CardLayout cardLayout;
 
+    private static final int VIEW_WIDTH = 600;
+    private static final int VIEW_HEIGHT = 360;
+
     private final String MENU = "Menu";
     private final String GAME = "Game";
+    private final String TWO_PLAYER = "TwoPlayer";
+
     private int levelNumber = 1;
 
-    private final String TWO_PLAYER = "TwoPlayer";
-    private Player2Controller controller2;
-
-
-    /** Launch the game */
     public static void main(String[] args) {
         new Game();
     }
 
-    /** Constructor: builds menu and game container */
     public Game() {
         frame = new JFrame("City Game");
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        // Add menu panel to the layout
         mainPanel.add(createMenuPanel(), MENU);
 
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 360);
-        frame.setLocationRelativeTo(null); // center on screen
+        frame.setSize(VIEW_WIDTH, VIEW_HEIGHT);
+        frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setVisible(true);
 
-        cardLayout.show(mainPanel, MENU); // show menu first
+        cardLayout.show(mainPanel, MENU);
     }
 
-    /** Build the start menu panel */
     private JPanel createMenuPanel() {
         JPanel menuPanel = new JPanel(new BorderLayout());
 
@@ -65,67 +56,70 @@ public class Game {
         title.setFont(new Font("Arial", Font.BOLD, 32));
         menuPanel.add(title, BorderLayout.NORTH);
 
-        // A panel to hold multiple buttons vertically
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        buttonPanel.setOpaque(false); // transparent if you ever add a background
+        buttonPanel.setOpaque(false);
 
-        // Start Game button
         JButton startButton = new JButton("Learning mode (one player)");
         startButton.setFont(new Font("Arial", Font.PLAIN, 24));
         startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        startButton.addActionListener(e -> {
-            loadGamePanel();                       // load game content
-            cardLayout.show(mainPanel, GAME);      // switch to game screen
-        });
+        startButton.addActionListener(e -> startSinglePlayer());
 
-        // New Two Player button
         JButton twoPlayerButton = new JButton("Two Player");
         twoPlayerButton.setFont(new Font("Arial", Font.PLAIN, 24));
         twoPlayerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        twoPlayerButton.addActionListener(e -> {
-            loadTwoPlayerMode();
-        });
+        twoPlayerButton.addActionListener(e -> startTwoPlayer());
 
-
-        // Add buttons to the button panel
         buttonPanel.add(startButton);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 20))); // spacing
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         buttonPanel.add(twoPlayerButton);
 
-        // Add button panel to center of menu
         menuPanel.add(buttonPanel, BorderLayout.CENTER);
 
         return menuPanel;
     }
 
-
-    /** Load the game logic and UI into the panel */
-    private void loadGamePanel() {
+    private void startSinglePlayer() {
         loadLevel(levelNumber);
-        setupView();
-        setupInput();
-        setupEnemies();
-        setupDebugView();
-        setupCollisionHandling();
-        view.setGridResolution(1);
+        Player1 player = currentLevel.getPlayer();
+
+        setupPlayer1(player);
+        loadViewForLevel(currentLevel, player);
+        setupEnemiesWithPatrol();
+        setupCollision(player);
         currentLevel.start();
 
-        mainPanel.add(view, GAME); // Add game view as a card
-        frame.addKeyListener(controller); // Controls now work
         new javax.swing.Timer(1000, e -> {
             if (currentLevel.isLevelComplete()) {
                 levelNumber++;
                 loadLevel(levelNumber);
+                setupPlayer1(currentLevel.getPlayer());
+                loadViewForLevel(currentLevel, currentLevel.getPlayer());
+                setupEnemiesWithPatrol();
+                setupCollision(currentLevel.getPlayer());
+                currentLevel.start();
             }
         }).start();
-
     }
 
-    /** Load a level (Easy, Medium, etc.) */
-    public void loadLevel(int levelNum) {
+    private void startTwoPlayer() {
+        currentLevel = new TwoPlayerLevel();
+        currentLevel.initialize();
+
+        Player1 player1 = currentLevel.getPlayer();
+        Player2 player2 = ((TwoPlayerLevel) currentLevel).getPlayer2();
+
+        setupPlayer1(player1);
+        setupPlayer2(player2);
+        loadViewForLevel(currentLevel, player1);
+        setupCollision(player1);
+
+        currentLevel.start();
+    }
+
+    private void loadLevel(int levelNum) {
         if (currentLevel != null) {
-            currentLevel.stop(); // Stop the current level
+            currentLevel.stop();
         }
 
         if (levelNum == 1) {
@@ -133,35 +127,40 @@ public class Game {
         } else if (levelNum == 2) {
             currentLevel = new MediumLevel();
         } else {
-            System.out.println("Game completed. Thank you for playing!");
+            JOptionPane.showMessageDialog(frame, "Game completed. Thank you for playing!");
             System.exit(0);
         }
 
         currentLevel.initialize();
+    }
 
-        Player1 player = currentLevel.getPlayer();
+    private void setupPlayer1(Player1 player) {
+        controller1 = new PlayerController(player);
+        frame.addKeyListener(controller1);
+    }
+
+    private void setupPlayer2(Player2 player) {
+        controller2 = new Player2Controller(player);
+        frame.addKeyListener(controller2);
+    }
+
+    private void loadViewForLevel(GameLevel level, Player1 player) {
         if (view == null) {
-            view = new BackgroundView(currentLevel, 600, 360, player);
+            Player2 player2 = (level instanceof TwoPlayerLevel) ? ((TwoPlayerLevel) level).getPlayer2() : null;
+            view = new BackgroundView(level, VIEW_WIDTH, VIEW_HEIGHT, player, player2);
+            mainPanel.add(view, level instanceof TwoPlayerLevel ? TWO_PLAYER : GAME);
         } else {
-            view.setWorld(currentLevel);
+            view.setWorld(level);
         }
-
-        currentLevel.start();
+        cardLayout.show(mainPanel, level instanceof TwoPlayerLevel ? TWO_PLAYER : GAME);
+        frame.requestFocus();
     }
 
-    /** Setup the camera and display */
-    private void setupView() {
-        view.setGridResolution(1);
+    private void setupCollision(Player1 player) {
+        player.addCollisionListener(new PlayerCollision(player));
     }
 
-    /** Setup input for player control */
-    private void setupInput() {
-        Player1 player = currentLevel.getPlayer();
-        controller = new PlayerController(player);
-    }
-
-    /** Add and animate enemies */
-    private void setupEnemies() {
+    private void setupEnemiesWithPatrol() {
         Enemy enemy1 = new Enemy(currentLevel, new Vec2(3, 3), "data/enemy1.png", 1, 6);
         Enemy enemy2 = new Enemy(currentLevel, new Vec2(-12, -1), "data/enemy2.png", -15, -8);
 
@@ -170,66 +169,4 @@ public class Game {
             enemy2.patrol();
         }).start();
     }
-
-    /** Show debug view (optional) */
-    private void setupDebugView() {
-        new DebugViewer(currentLevel, 600, 360);
-    }
-
-    /** Setup collisions for coins/enemies */
-    private void setupCollisionHandling() {
-        Player1 player = currentLevel.getPlayer();
-        player.addCollisionListener(new PlayerCollision(player));
-    }
-
-    /** Optional: Play background music */
-    private void setupMusic() {
-        try {
-            gameMusic = new SoundClip("data/gametheme.wav");
-            gameMusic.loop();
-        } catch (Exception e) {
-            System.err.println("Error loading music: " + e.getMessage());
-        }
-    }
-    public void loadTwoPlayerMode() {
-        if (currentLevel != null) {
-            currentLevel.stop();
-        }
-
-        // Load the Two Player level
-        currentLevel = new TwoPlayerLevel();
-        currentLevel.initialize();
-
-        // === PLAYER 1 SETUP ===
-        Player1 player1 = currentLevel.getPlayer(); // already created in GameLevel
-        player1.setPosition(new Vec2(-5, -2));
-        controller = new PlayerController(player1);
-
-        // === PLAYER 2 SETUP ===
-        Player2 player2 = new Player2(currentLevel); // create new Player2
-        player2.setPosition(new Vec2(5, -2));
-        currentLevel.addEntity(player2);
-        controller2 = new Player2Controller(player2);
-
-        // === VIEW SETUP ===
-        view = new BackgroundView(currentLevel, 600, 360, player1); // camera follows player1
-        view.setWorld(currentLevel);
-
-        // === ADDING TO FRAME ===
-        mainPanel.add(view, TWO_PLAYER);
-        cardLayout.show(mainPanel, TWO_PLAYER);
-
-        // === CONTROLS ===
-        frame.addKeyListener(controller);
-        frame.addKeyListener(controller2);
-        frame.requestFocus(); // ensure key input works
-
-        // === COLLISIONS ===
-        player1.addCollisionListener(new PlayerCollision(player1));
-
-        // === START LEVEL ===
-        currentLevel.start();
-    }
-
-
 }

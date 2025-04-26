@@ -18,7 +18,7 @@ public class PlayerCollision implements CollisionListener {
     public void collide(CollisionEvent e) {
         // Handle enemy collision only
         if (e.getOtherBody() instanceof Enemy) {
-            player.decreaseHealth();
+            player.decreaseHealth(1);
         }
     }
 }
