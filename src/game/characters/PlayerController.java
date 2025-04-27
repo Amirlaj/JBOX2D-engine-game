@@ -3,24 +3,17 @@ package game.characters;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-/**
- * Handles keyboard input for Player1 using arrow keys and space.
- */
+/**Handles keyboard input for Player1 using arrow keys and space. */
 public class PlayerController implements KeyListener {
-
     private Player1 player1;
 
-    /**
-     * Creates a controller for Player1.
-     * @param player the Player1 instance to control
-     */
+    /**Creates a controller for Player1.
+     * @param player the Player1 instance to control*/
     public PlayerController(Player1 player) {
         this.player1 = player;
     }
 
-    /**
-     * Handles key press events for movement and shooting.
-     */
+    /** Handles key press events for movement and shooting. */
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -31,10 +24,6 @@ public class PlayerController implements KeyListener {
             case KeyEvent.VK_SPACE -> player1.shoot();
         }
     }
-
-    /**
-     * Handles key release events to stop horizontal movement.
-     */
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
@@ -42,11 +31,6 @@ public class PlayerController implements KeyListener {
             player1.stopMoving();
         }
     }
-
-    /**
-     * Not used but required by interface.
-     */
-    @Override
     public void keyTyped(KeyEvent e) {
         // Not used
     }

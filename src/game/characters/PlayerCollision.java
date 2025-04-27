@@ -5,14 +5,10 @@ import city.cs.engine.CollisionListener;
 import game.entities.Enemy;
 import game.entities.Jumper;
 
-/**
- * Handles collisions for Player1.
- * Reduces health on enemy collision, activates jetpack on Jumper contact.
- */
+/**Handles collisions for Player1.
+ * Reduces health on enemy collision, activates jetpack on Jumper contact*/
 public class PlayerCollision implements CollisionListener {
-
     private Player1 player;
-
     /**
      * Constructs a collision listener for Player1.
      * @param player the player instance affected by collisions
@@ -21,10 +17,9 @@ public class PlayerCollision implements CollisionListener {
         this.player = player;
     }
 
-    /**
-     * Handles collision events.
-     * @param e the collision event
-     */
+
+
+    /** @param e the collision event*/
     @Override
     public void collide(CollisionEvent e) {
         if (e.getOtherBody() instanceof Enemy) {

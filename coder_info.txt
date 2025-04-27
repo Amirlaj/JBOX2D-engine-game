@@ -2,4 +2,4 @@ amir lajevardi
 
 amir.lajevardi@city.ac.uk
 
-// AI is used for ONLY English wording and sentences suggestions such as comments and some variables naming.
+// AI is used for ONLY English wording and sentences suggestions some comments and variables naming like TWO_PLAYER.Which is final so it should be capital case

@@ -7,52 +7,44 @@ import game.entities.MaxHealthPickup;
 import game.characters.Player1;
 import org.jbox2d.common.Vec2;
 
-/**
- * MediumLevel introduces more complexity with powerups and elevated platforms.
- */
+/**MediumLevel*/
 public class MediumLevel extends GameLevel {
 
-    /**
-     * Constructs a new MediumLevel.
-     */
+
+
+
     public MediumLevel() {
         super("Medium Level", "Background.png",  2);
     }
-
     /**
-     * Initializes the level with player, one enemy, a jetpack, and a health pickup.
-     */
+     * two enemy, a jetpack, and a health pickup. */
     @Override
     public void initialize() {
         // Create and position Player 1
         Player1 player = new Player1(this);
         setPlayer(player);
         player.setPosition(new Vec2(-10, -5));
-
         // Create ground
         Shape groundShape = new BoxShape(20, 0.5f);
         StaticBody ground = new StaticBody(this, groundShape);
         ground.setPosition(new Vec2(0, -7));
 
-        // Powerups
         Jumper jumper = new Jumper(this);
         jumper.setPosition(new Vec2(0, -6));
         addEntity(jumper);
-
         MaxHealthPickup healthPickup = new MaxHealthPickup(this);
         healthPickup.setPosition(new Vec2(7, -6));
         addEntity(healthPickup);
-
         // Elevated platform
         Shape platformShape = new BoxShape(3, 0.5f);
         StaticBody topRightPlatform = new StaticBody(this, platformShape);
         topRightPlatform.setPosition(new Vec2(12, 3.5f));
         addEntity(topRightPlatform);
-
         // Stationary enemy on the platform
-        Enemy topRightEnemy = new Enemy(this, new Vec2(12, 4), "data/enemy1.png", 0, 0);
+        Enemy topRightEnemy = new Enemy(this, new Vec2(12, 4), "data/enemy1.png", 11, 13);
         addEntity(topRightEnemy);
 
-        Enemy groundEnemy = new Enemy(this, new Vec2(-5, -7), "data/enemy1.png", -6, -7);
+        Enemy groundEnemy = new Enemy(this, new Vec2(6, 7), "data/enemy1.png", 4, 8);
+        addEntity(groundEnemy);
     }
 }

@@ -4,23 +4,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * Handles keyboard input for controlling Player2 using WASD and F keys.
+ * same as the player1 controller but differnt button
  */
 public class Player2Controller implements KeyListener {
 
     private Player2 player2;
 
-    /**
-     * Creates a key listener for Player2.
-     * @param player the Player2 instance to control
-     */
     public Player2Controller(Player2 player) {
         this.player2 = player;
     }
-
-    /**
-     * Handles key press events.
-     */
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -31,10 +23,6 @@ public class Player2Controller implements KeyListener {
             case KeyEvent.VK_F -> player2.shoot();
         }
     }
-
-    /**
-     * Handles key release events.
-     */
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
@@ -42,10 +30,6 @@ public class Player2Controller implements KeyListener {
             player2.stopMoving();
         }
     }
-
-    /**
-     * Not used but required by interface.
-     */
     @Override
     public void keyTyped(KeyEvent e) {
         // Not used
