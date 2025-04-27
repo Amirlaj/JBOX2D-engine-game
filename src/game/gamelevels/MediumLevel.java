@@ -16,7 +16,7 @@ public class MediumLevel extends GameLevel {
      * Constructs a new MediumLevel.
      */
     public MediumLevel() {
-        super("Medium Level", "Medium_Background.png", 0, 1);
+        super("Medium Level", "Background.png",  2);
     }
 
     /**
@@ -32,7 +32,7 @@ public class MediumLevel extends GameLevel {
         // Create ground
         Shape groundShape = new BoxShape(20, 0.5f);
         StaticBody ground = new StaticBody(this, groundShape);
-        ground.setPosition(new Vec2(0, -8));
+        ground.setPosition(new Vec2(0, -7));
 
         // Powerups
         Jumper jumper = new Jumper(this);
@@ -52,5 +52,7 @@ public class MediumLevel extends GameLevel {
         // Stationary enemy on the platform
         Enemy topRightEnemy = new Enemy(this, new Vec2(12, 4), "data/enemy1.png", 0, 0);
         addEntity(topRightEnemy);
+
+        Enemy groundEnemy = new Enemy(this, new Vec2(-5, -7), "data/enemy1.png", -6, -7);
     }
 }

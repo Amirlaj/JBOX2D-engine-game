@@ -13,7 +13,6 @@ public abstract class GameLevel extends World {
 
     protected String levelName;
     protected String background;
-    protected int goalScore;
     protected List<Object> entities;
     protected Player1 player;
     protected int requiredKills;
@@ -25,13 +24,11 @@ public abstract class GameLevel extends World {
      * Constructs a GameLevel with metadata and completion requirement.
      * @param levelName name of the level
      * @param background path to background image
-     * @param goalScore not currently used but available for future use
      * @param requiredKills number of kills to complete the level
      */
-    public GameLevel(String levelName, String background, int goalScore, int requiredKills) {
+    public GameLevel(String levelName, String background, int requiredKills) {
         this.levelName = levelName;
         this.background = background;
-        this.goalScore = goalScore;
         this.entities = new ArrayList<>();
         this.requiredKills = requiredKills;
     }
@@ -76,9 +73,6 @@ public abstract class GameLevel extends World {
         return background;
     }
 
-    public int getGoalScore() {
-        return goalScore;
-    }
 
     public List<Object> getEntities() {
         return entities;

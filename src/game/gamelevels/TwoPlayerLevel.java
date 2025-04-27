@@ -19,7 +19,7 @@ public class TwoPlayerLevel extends GameLevel {
      * Constructs a new TwoPlayerLevel.
      */
     public TwoPlayerLevel() {
-        super("Two Player Mode", "background.png", 0, 3);
+        super("Two Player Mode", "background.png",  3);
     }
 
     /**
@@ -36,7 +36,7 @@ public class TwoPlayerLevel extends GameLevel {
 
         // Ground
         Shape groundShape = new BoxShape(20, 0.5f);
-        new StaticBody(this, groundShape).setPosition(new Vec2(0, -8));
+        new StaticBody(this, groundShape).setPosition(new Vec2(0, -7));
 
         // Platforms
         Shape platformShape = new BoxShape(4, 0.2f);

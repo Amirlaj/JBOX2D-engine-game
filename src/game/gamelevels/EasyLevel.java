@@ -14,7 +14,7 @@ public class EasyLevel extends GameLevel {
      * Constructs a new EasyLevel.
      */
     public EasyLevel() {
-        super("Easy Level", "Background.png", 0, 2);
+        super("Easy Level", "Background.png", 2);
     }
 
     /**
@@ -29,7 +29,7 @@ public class EasyLevel extends GameLevel {
         // Create ground
         Shape groundShape = new BoxShape(15, 0.5f);
         StaticBody ground = new StaticBody(this, groundShape);
-        ground.setPosition(new Vec2(0, -8));
+        ground.setPosition(new Vec2(0, -7));
 
         // Create enemies with patrol bounds
         Enemy enemy1 = new Enemy(this, new Vec2(4, -6), "data/enemy1.png", 2, 7);
