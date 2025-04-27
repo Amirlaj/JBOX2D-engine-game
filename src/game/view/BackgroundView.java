@@ -5,53 +5,85 @@ import city.cs.engine.UserView;
 import game.characters.Player1;
 import game.characters.Player2;
 import org.jbox2d.common.Vec2;
-import java.awt.*;
-
 
 import javax.swing.*;
+import java.awt.*;
 
+/**
+ * BackgroundView is the visual layer that renders the world and UI elements.
+ * Displays player health bars and tracks the camera based on Player1.
+ */
 public class BackgroundView extends UserView {
+
     private Image background;
-    private Player1 player;
     private Image coinIcon;
 
-    private Player2 player2; // null unless in two player mode
+    private Player1 player;
+    private Player2 player2; // null unless in two-player mode
 
-    // Constructor for both modes
+    /**
+     * Constructs a new BackgroundView.
+     * @param world the world to render
+     * @param width the view width
+     * @param height the view height
+     * @param player1 the main player to track and render
+     * @param player2 the second player (optional)
+     */
     public BackgroundView(World world, int width, int height, Player1 player1, Player2 player2) {
         super(world, width, height);
         this.player = player1;
-        this.player2 = player2; // can be null
+        this.player2 = player2;
         background = new ImageIcon("data/background.png").getImage();
         coinIcon = new ImageIcon("data/coin.png").getImage();
     }
 
+    /**
+     * Shifts the view to follow Player1 with a slight forward offset.
+     */
     @Override
     public Vec2 getCentre() {
         Vec2 pos = player.getPosition();
-        return new Vec2(pos.x + 2f, pos.y); // shift the view 2 units ahead
+        return new Vec2(pos.x + 2f, pos.y);
     }
 
-
+    /**
+     * Paints the background image.
+     */
     @Override
     protected void paintBackground(Graphics2D g) {
         g.drawImage(background, 0, 0, this.getWidth(), this.getHeight(), null);
     }
 
+    /**
+     * Paints health bars for Player1 and Player2 (if present).
+     */
     @Override
     protected void paintForeground(Graphics2D g) {
         // Health bar for Player1
+        drawHealthBar(g, player.getHealth(), 10, 10, "Player one");
+
+        // Health bar for Player2 (if it exists)
+        if (player2 != null) {
+            drawHealthBar(g, player2.getHealth(), 10, 40, "Player two");
+        }
+    }
+
+    /**
+     * Utility method to draw a health bar.
+     * @param g the graphics context
+     * @param currentHealth current health value
+     * @param x x position of the bar
+     * @param y y position of the bar
+     * @param label player label
+     */
+    private void drawHealthBar(Graphics2D g, int currentHealth, int x, int y, String label) {
         int maxHealth = 3;
-        int currentHealth = player.getHealth();
         int barWidth = 150;
         int barHeight = 20;
-        int x = 10;
-        int y = 10;
+        int currentBarWidth = (int) ((currentHealth / (float) maxHealth) * barWidth);
 
         g.setColor(Color.GRAY);
         g.fillRect(x, y, barWidth, barHeight);
-
-        int currentBarWidth = (int) ((currentHealth / (float) maxHealth) * barWidth);
 
         if (currentHealth > 2) {
             g.setColor(Color.GREEN);
@@ -60,35 +92,9 @@ public class BackgroundView extends UserView {
         } else {
             g.setColor(Color.RED);
         }
-
         g.fillRect(x, y, currentBarWidth, barHeight);
+
         g.setColor(Color.WHITE);
-        g.drawString("Player one: " + currentHealth + " / " + maxHealth, x + 40, y + 15);
-
-        // Health bar for Player2 (if it exists)
-        if (player2 != null) {
-            int player2Health = player2.getHealth();
-            int player2BarWidth = (int) ((player2Health / (float) maxHealth) * barWidth);
-            int player2Y = y + barHeight + 10; // Position below Player1's health bar
-
-            g.setColor(Color.GRAY);
-            g.fillRect(x, player2Y, barWidth, barHeight);
-
-            if (player2Health > 2) {
-                g.setColor(Color.GREEN);
-            } else if (player2Health == 2) {
-                g.setColor(Color.YELLOW);
-            } else {
-                g.setColor(Color.RED);
-            }
-
-            g.fillRect(x, player2Y, player2BarWidth, barHeight);
-            g.setColor(Color.WHITE);
-            g.drawString("Player two: " + player2Health + " / " + maxHealth, x + 40, player2Y + 15);
-
-
-        }
-
-
+        g.drawString(label + ": " + currentHealth + " / " + maxHealth, x + 40, y + 15);
     }
 }

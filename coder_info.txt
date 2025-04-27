@@ -1,3 +1,5 @@
 amir lajevardi
 
 amir.lajevardi@city.ac.uk
+
+// AI only used for generating English wording and sentence suggestions such as comments and some variables naming.

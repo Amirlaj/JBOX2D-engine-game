@@ -5,6 +5,10 @@ import game.characters.Player1;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Base class for all levels in the game.
+ * Stores level-specific attributes and common logic for completion.
+ */
 public abstract class GameLevel extends World {
 
     protected String levelName;
@@ -17,6 +21,13 @@ public abstract class GameLevel extends World {
 
     private List<String> levelMessages = new ArrayList<>();
 
+    /**
+     * Constructs a GameLevel with metadata and completion requirement.
+     * @param levelName name of the level
+     * @param background path to background image
+     * @param goalScore not currently used but available for future use
+     * @param requiredKills number of kills to complete the level
+     */
     public GameLevel(String levelName, String background, int goalScore, int requiredKills) {
         this.levelName = levelName;
         this.background = background;
@@ -37,11 +48,18 @@ public abstract class GameLevel extends World {
         entities.add(entity);
     }
 
+    /**
+     * Called when the level is loaded. Use to set up game objects.
+     */
     public void initialize() {
         System.out.println("Initializing level: " + levelName);
         System.out.println("Setting background: " + background);
     }
 
+    /**
+     * Checks if the level's required kill count has been met.
+     * @return true if completed
+     */
     public boolean isLevelComplete() {
         return player.getEnemyKills() >= requiredKills;
     }

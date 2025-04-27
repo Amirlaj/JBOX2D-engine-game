@@ -7,63 +7,66 @@ import game.characters.Player1;
 import game.characters.Player2;
 import org.jbox2d.common.Vec2;
 
+/**
+ * A level configuration for two-player mode.
+ * Includes multiple platforms, powerups, and spawns both players.
+ */
 public class TwoPlayerLevel extends GameLevel {
 
-    private Player2 player2; // ✅ store reference to Player2
+    private Player2 player2; // Player 2 reference
 
+    /**
+     * Constructs a new TwoPlayerLevel.
+     */
     public TwoPlayerLevel() {
         super("Two Player Mode", "background.png", 0, 3);
     }
 
+    /**
+     * Initializes the level, placing both players, platforms, and pickups.
+     */
     @Override
     public void initialize() {
         super.initialize();
 
+        // Create Player 1
         Player1 player1 = new Player1(this);
         setPlayer(player1);
         player1.setPosition(new Vec2(-5, -2));
 
+        // Ground
         Shape groundShape = new BoxShape(20, 0.5f);
         new StaticBody(this, groundShape).setPosition(new Vec2(0, -8));
 
+        // Platforms
         Shape platformShape = new BoxShape(4, 0.2f);
 
-        StaticBody platform1 = new StaticBody(this, platformShape);
-        platform1.setPosition(new Vec2(-10, -4));
+        new StaticBody(this, platformShape).setPosition(new Vec2(-10, -4));
+        new StaticBody(this, platformShape).setPosition(new Vec2(6, 5));
+        new StaticBody(this, platformShape).setPosition(new Vec2(5, 0));
+        new StaticBody(this, platformShape).setPosition(new Vec2(7, -4));
+        new StaticBody(this, platformShape).setPosition(new Vec2(-8, 2));
 
-        StaticBody platform2 = new StaticBody(this, platformShape);
-        platform2.setPosition(new Vec2(6, 5));
-
-        StaticBody platform3 = new StaticBody(this, platformShape);
-        platform3.setPosition(new Vec2(5, 0));
-
-        StaticBody platform4 = new StaticBody(this, platformShape);
-        platform4.setPosition(new Vec2(7, -4));
-
-        StaticBody platform5 = new StaticBody(this, platformShape);
-        platform5.setPosition(new Vec2(-8, 2));
-
-
+        // Create Player 2
         player2 = new Player2(this);
         player2.setPosition(new Vec2(5, -2));
         addEntity(player2);
 
+        // Powerups
         MaxHealthPickup pickup = new MaxHealthPickup(this);
-        pickup.setPosition(new Vec2(-7, 8)); // Example new position
+        pickup.setPosition(new Vec2(-7, 8));
         addEntity(pickup);
         System.out.println("MaxHealthPickup created at position: " + pickup.getPosition());
+
         Jumper jetpack = new Jumper(this, new Vec2(-3, 3));
         addEntity(jetpack);
-
     }
 
-
-    // ✅ Getter so Game.java can access it
+    /**
+     * Accessor for Player 2.
+     * @return the Player2 instance
+     */
     public Player2 getPlayer2() {
         return player2;
     }
-
-
-
 }
-

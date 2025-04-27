@@ -40,16 +40,12 @@ public class SoundPlayer {
             System.out.println("📁 Full path: " + file.getAbsolutePath());
 
             if (!file.exists()) {
-                System.out.println("❌ File not found.");
                 return;
             }
 
             SoundPlayer player = new SoundPlayer("data/" + soundFile);
-            System.out.println("✅ Sound loaded successfully.");
             player.loop();  // or player.play();
-            System.out.println("🎵 Playing...");
         } catch (Exception e) {
-            System.out.println("❌ Exception thrown:");
             e.printStackTrace();
         }
     }
