@@ -1,14 +1,16 @@
-package game;
+package game.view;
 
 import city.cs.engine.World;
 import city.cs.engine.UserView;
 import game.characters.Player1;
 import game.characters.Player2;
 import org.jbox2d.common.Vec2;
+import java.awt.*;
+
 
 import javax.swing.*;
-import java.awt.*;
-class BackgroundView extends UserView {
+
+public class BackgroundView extends UserView {
     private Image background;
     private Player1 player;
     private Image coinIcon;
@@ -83,7 +85,10 @@ class BackgroundView extends UserView {
             g.fillRect(x, player2Y, player2BarWidth, barHeight);
             g.setColor(Color.WHITE);
             g.drawString("Player two: " + player2Health + " / " + maxHealth, x + 40, player2Y + 15);
-        }
-    }
 
+
+        }
+
+
+    }
 }

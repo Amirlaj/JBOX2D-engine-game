@@ -1,14 +1,16 @@
 package game.gamelevels;
 
 import city.cs.engine.*;
-import game.Enemy;
+import game.entities.Enemy;
+import game.entities.Jumper;
+import game.entities.MaxHealthPickup;
 import game.characters.Player1;
 import org.jbox2d.common.Vec2;
 
 public class MediumLevel extends GameLevel {
 
     public MediumLevel() {
-        super("Medium Level", "medium_background.png", 0, 6);
+        super("Medium Level", "Medium_Background.png", 0, 1);
     }
 
     @Override
@@ -21,13 +23,24 @@ public class MediumLevel extends GameLevel {
         StaticBody ground = new StaticBody(this, groundShape);
         ground.setPosition(new Vec2(0, -8));
 
-//        Shape platformShape = new BoxShape(4, 0.5f);
-//        StaticBody platform1 = new StaticBody(this, platformShape);
-//        platform1.setPosition(new Vec2(0, 0));
-//        StaticBody platform2 = new StaticBody(this, platformShape);
-//        platform2.setPosition(new Vec2(-8, -2));
-//        StaticBody platform3 = new StaticBody(this, platformShape);
-//        platform3.setPosition(new Vec2(8, 2));
+
+        new Jumper(this).setPosition(new Vec2(0, -6));
+        new MaxHealthPickup(this).setPosition(new Vec2(7, -6));
+
+        Shape topRightPlatformShape = new BoxShape(3, 0.5f);
+        StaticBody topRightPlatform = new StaticBody(this, topRightPlatformShape); // ✅ different name
+        topRightPlatform.setPosition(new Vec2(12, 3.5f));
+        addEntity(topRightPlatform);
+
+
+// Stable enemy (no patrol)
+        Enemy topRightEnemy = new Enemy(this, new Vec2(12, 4), "data/enemy1.png", 0, 0); // bounds won't matter since no patrol
+        addEntity(topRightEnemy);
+
+
+
 
     }
+
+
 }

@@ -1,20 +1,18 @@
 package game.gamelevels;
 
 import city.cs.engine.*;
-import game.Jetpack;
-import game.MaxHealthPickup;
+import game.entities.Jumper;
+import game.entities.MaxHealthPickup;
 import game.characters.Player1;
 import game.characters.Player2;
 import org.jbox2d.common.Vec2;
-
-import java.util.Random;
 
 public class TwoPlayerLevel extends GameLevel {
 
     private Player2 player2; // ✅ store reference to Player2
 
     public TwoPlayerLevel() {
-        super("Two Player Mode", "background.png", 0, 6);
+        super("Two Player Mode", "background.png", 0, 3);
     }
 
     @Override
@@ -51,10 +49,10 @@ public class TwoPlayerLevel extends GameLevel {
         addEntity(player2);
 
         MaxHealthPickup pickup = new MaxHealthPickup(this);
-        pickup.setPosition(new Vec2(-7, -4)); // Example new position
+        pickup.setPosition(new Vec2(-7, 8)); // Example new position
         addEntity(pickup);
         System.out.println("MaxHealthPickup created at position: " + pickup.getPosition());
-        Jetpack jetpack = new Jetpack(this, new Vec2(-3, 3));
+        Jumper jetpack = new Jumper(this, new Vec2(-3, 3));
         addEntity(jetpack);
 
     }

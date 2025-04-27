@@ -13,24 +13,22 @@ public abstract class GameLevel extends World {
     protected List<Object> entities;
     protected Player1 player;
     protected int requiredKills;
+    protected String levelMessage = "";
 
+    private List<String> levelMessages = new ArrayList<>();
 
     public GameLevel(String levelName, String background, int goalScore, int requiredKills) {
-
         this.levelName = levelName;
         this.background = background;
         this.goalScore = goalScore;
         this.entities = new ArrayList<>();
         this.requiredKills = requiredKills;
-
-
     }
 
     public void setPlayer(Player1 player) {
         this.player = player;
     }
 
-    // Get the player object
     public Player1 getPlayer() {
         return player;
     }
@@ -48,8 +46,6 @@ public abstract class GameLevel extends World {
         return player.getEnemyKills() >= requiredKills;
     }
 
-
-    // Optional render method (if needed)
     public void render() {
         System.out.println("Rendering the background: " + background);
     }
@@ -68,5 +64,21 @@ public abstract class GameLevel extends World {
 
     public List<Object> getEntities() {
         return entities;
+    }
+
+    public String getLevelMessage() {
+        return levelMessage;
+    }
+
+    public void setLevelMessage(String levelMessage) {
+        this.levelMessage = levelMessage;
+    }
+
+    public void addLevelMessage(String message) {
+        levelMessages.add(message);
+    }
+
+    public List<String> getLevelMessages() {
+        return levelMessages;
     }
 }

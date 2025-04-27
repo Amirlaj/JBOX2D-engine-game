@@ -1,8 +1,6 @@
-package game;
+package game.entities;
 
 import city.cs.engine.*;
-import game.characters.Player1;
-import game.characters.Player2;
 import org.jbox2d.common.Vec2;
 
 public class Bullet extends DynamicBody {
@@ -13,7 +11,7 @@ public class Bullet extends DynamicBody {
     public Bullet(World world, Vec2 position, boolean facingRight) {
         super(world, shape);
         setPosition(position);
-        addImage(new BodyImage("data/bullet.png", 0.5f));
+        addImage(new BodyImage("data/bullet.png", 1));
 
         float direction = facingRight ? 1 : -1;
         setLinearVelocity(new Vec2(SPEED * direction, 0));

@@ -2,14 +2,15 @@ package game.characters;
 
 import city.cs.engine.Walker;
 import city.cs.engine.*;
-import game.Bullet;
+import game.entities.Bullet;
 import game.gamelevels.GameLevel;
+import game.view.GameOverManager;
 import org.jbox2d.common.Vec2;
 
 public class Player2 extends Walker {
 
     private static final float SPEED = 5;
-    private static final float JUMP = 8;
+    private static final float JUMP = 13;
     private int health = 3;
     private int score = 0;
 
@@ -56,7 +57,7 @@ public class Player2 extends Walker {
         if (health <= 0) {
             System.out.println("Player 2 is dead!");
             this.destroy();
-            game.GameOverManager.declareWinner("Player 1");
+            GameOverManager.declareWinner("Player 2");
         }
     }
 

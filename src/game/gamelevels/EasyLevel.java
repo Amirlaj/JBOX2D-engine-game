@@ -1,15 +1,14 @@
 package game.gamelevels;
 
 import city.cs.engine.*;
-import game.Enemy;
-import game.MaxHealthPickup;
+import game.entities.Enemy;
 import game.characters.Player1;
 import org.jbox2d.common.Vec2;
 
 public class EasyLevel extends GameLevel {
 
     public EasyLevel() {
-        super("Easy Level", "easy_background.png", 0, 3);
+        super("Easy Level", "Background.png", 0, 2);
     }
 
     @Override
@@ -22,7 +21,11 @@ public class EasyLevel extends GameLevel {
         StaticBody ground = new StaticBody(this, groundShape);
         ground.setPosition(new Vec2(0, -8));
 
-        new Enemy(this, new Vec2(4, 0), "data/enemy1.png", 2, 7);
+        Enemy enemy1 = new Enemy(this, new Vec2(4, -6), "data/enemy1.png", 2, 7);
+        Enemy enemy2 = new Enemy(this, new Vec2(-6, -6), "data/enemy2.png", -8, -4);
+
 
     }
+
+
 }

@@ -2,8 +2,8 @@ package game.characters;
 
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
-import game.Enemy;
-import game.Jetpack;
+import game.entities.Enemy;
+import game.entities.Jumper;
 
 /**
  * Handles collisions for the player, excluding coins.
@@ -19,7 +19,7 @@ public class PlayerCollision implements CollisionListener {
     public void collide(CollisionEvent e) {
         if (e.getOtherBody() instanceof Enemy) {
             player.decreaseHealth(1);
-        } else if (e.getOtherBody() instanceof Jetpack) {
+        } else if (e.getOtherBody() instanceof Jumper) {
             player.enableJetpack();
             e.getOtherBody().destroy();
         }

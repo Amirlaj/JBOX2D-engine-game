@@ -2,7 +2,7 @@ package game.characters;
 
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
-import game.Enemy;
+import game.entities.Enemy;
 
 public class Player2Collision implements CollisionListener {
     private Player2 player;
