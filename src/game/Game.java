@@ -26,7 +26,6 @@ public class Game {
     private final String TWO_PLAYER = "TwoPlayer"; // menu for 2p mode
     private int levelNumber = 1; // the level that is currently loaded
     private boolean isPaused = false ; // whether the game is paused
-
     public static void main(String[] args) {
         new Game();
     }
