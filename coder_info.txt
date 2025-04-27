@@ -2,4 +2,5 @@ amir lajevardi
 
 amir.lajevardi@city.ac.uk
 
-// AI is used for ONLY English wording and sentences suggestions some comments and variables naming like TWO_PLAYER.Which is final so it should be capital case
+// AI(chatGPT) is used for ONLY English wording and sentences suggestions some comments and variables naming
+// only used this for imporving the wording and better at writing
