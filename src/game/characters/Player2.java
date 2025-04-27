@@ -54,10 +54,12 @@ public class Player2 extends Walker {
     public void decreaseHealth(int amount) {
         health -= amount;
         if (health <= 0) {
-            System.out.println("Player is dead!");
+            System.out.println("Player 2 is dead!");
             this.destroy();
+            game.GameOverManager.declareWinner("Player 1");
         }
     }
+
 
 
     public int getHealth() {

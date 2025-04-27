@@ -113,6 +113,11 @@ public class Game {
         setupPlayer2(player2);
         loadViewForLevel(currentLevel, player1);
         setupCollision(player1);
+        setupCollision(player1);
+        player1.addCollisionListener(new PlayerCollision(player1));
+
+        player2.addCollisionListener(new Player2Collision(player2));
+
 
         currentLevel.start();
     }
@@ -126,9 +131,12 @@ public class Game {
             currentLevel = new EasyLevel();
         } else if (levelNum == 2) {
             currentLevel = new MediumLevel();
+        } else if (levelNum == 3) {
+            currentLevel = new HardLevel();
         } else {
             JOptionPane.showMessageDialog(frame, "Game completed. Thank you for playing!");
             System.exit(0);
+            return;
         }
 
         currentLevel.initialize();

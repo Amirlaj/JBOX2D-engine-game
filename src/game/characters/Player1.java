@@ -19,6 +19,8 @@ public class Player1 extends Walker {
 
     private int enemyKills = 0;
 
+    private boolean hasJetpack = false;
+
 
     public Player1(GameLevel gameWorld) {
         super(gameWorld, new BoxShape(0.6f, 1));
@@ -42,10 +44,12 @@ public class Player1 extends Walker {
     }
 
     public void jump() {
+        float jumpPower = hasJetpack ? 15f : 8f;
         if (this.getLinearVelocity().y == 0) {
-            this.setLinearVelocity(new Vec2(this.getLinearVelocity().x, JUMP));
+            this.setLinearVelocity(new Vec2(this.getLinearVelocity().x, jumpPower));
         }
     }
+
 
     public void stopMoving() {
         this.setLinearVelocity(new Vec2(0, this.getLinearVelocity().y));
@@ -54,10 +58,12 @@ public class Player1 extends Walker {
     public void decreaseHealth(int amount) {
         health -= amount;
         if (health <= 0) {
-            System.out.println("Player is dead!");
+            System.out.println("Player 1 is dead!");
             this.destroy();
+            game.GameOverManager.declareWinner("Player 2");
         }
     }
+
 
 
     public int getHealth() {
@@ -103,5 +109,9 @@ public class Player1 extends Walker {
         return enemyKills;
     }
 
+    public void enableJetpack() {
+        hasJetpack = true;
+        System.out.println("Jetpack enabled!");
+    }
 
 }
