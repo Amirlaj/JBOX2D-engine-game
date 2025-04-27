@@ -104,6 +104,11 @@ public class Player2 extends Walker {
     public int getEnemyKills() {
         return enemyKills;
     }
+    public void restoreHealth() {
+        health = 3; // or MAX_HEALTH if you define it
+        System.out.println("Health fully restored!");
+    }
+
 
 
 }

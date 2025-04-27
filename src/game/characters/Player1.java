@@ -113,5 +113,10 @@ public class Player1 extends Walker {
         hasJetpack = true;
         System.out.println("Jetpack enabled!");
     }
+    public void restoreHealth() {
+        health = 3; // or MAX_HEALTH if you define it
+        System.out.println("Health fully restored!");
+    }
+
 
 }

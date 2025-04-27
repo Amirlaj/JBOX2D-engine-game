@@ -2,6 +2,7 @@ package game.gamelevels;
 
 import city.cs.engine.*;
 import game.Enemy;
+import game.MaxHealthPickup;
 import game.characters.Player1;
 import org.jbox2d.common.Vec2;
 
@@ -22,5 +23,6 @@ public class EasyLevel extends GameLevel {
         ground.setPosition(new Vec2(0, -8));
 
         new Enemy(this, new Vec2(4, 0), "data/enemy1.png", 2, 7);
+
     }
 }
