@@ -13,11 +13,11 @@ public class MediumLevel extends GameLevel {
 
 
 
+
     public MediumLevel() {
         super("Medium Level", "Background.png",  2);
     }
-    /**
-     * two enemy, a jetpack, and a health pickup. */
+    /** two enemy, a jetpack, and a health pickup. */
     @Override
     public void initialize() {
         // Create and position Player 1

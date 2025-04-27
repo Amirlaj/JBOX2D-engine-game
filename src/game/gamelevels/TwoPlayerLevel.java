@@ -40,9 +40,9 @@ public class TwoPlayerLevel extends GameLevel {
         addEntity(player2);
         // max health
         MaxHealthPickup pickup = new MaxHealthPickup(this);
-        pickup.setPosition(new Vec2(-7, 8));
+        pickup.setPosition(new Vec2(6, -3));
         addEntity(pickup);
-        Jumper jetpack = new Jumper(this, new Vec2(-3, 3));
+        Jumper jetpack = new Jumper(this, new Vec2(-3, -1));
         addEntity(jetpack);
     }
     /** Accessor for Player 2.
