@@ -3,6 +3,7 @@ package game.entities;
 import city.cs.engine.*;
 import game.characters.Player1;
 import org.jbox2d.common.Vec2;
+import game.characters.Player2;
 
 /** Jumper makes the player to jump higher.*/
 public class Jumper extends StaticBody implements CollisionListener {
@@ -27,6 +28,11 @@ public class Jumper extends StaticBody implements CollisionListener {
             Player1 player = (Player1) e.getOtherBody();
             player.enableJetpack();
             this.destroy();
+        } else if (e.getOtherBody() instanceof Player2) {
+            Player2 player = (Player2) e.getOtherBody();
+            player.jump(); // You can customize this to do something special if you want
+            this.destroy();
         }
     }
+
 }

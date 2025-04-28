@@ -11,9 +11,9 @@ import org.jbox2d.common.Vec2;
  * Supports movement, jumping (with jetpack upgrade), shooting, health, and kill tracking*/
 public class Player1 extends Walker {
     private static final float SPEED = 5;
-    private static final float JUMP = 13;
+    private static final float JUMP = 7;
     private int health = 3;
-    private int score = 0;
+//    private int score = 0;
     private int enemyKills = 0;
     private boolean hasJetpack = false;
     private BodyImage rightImage;
@@ -71,12 +71,12 @@ public class Player1 extends Walker {
     public int getHealth() {
         return health;
     }
-    public void increaseScore() {
-        score++;
-    }
-    public int getScore() {
-        return score;
-    }
+//    public void increaseScore() {
+//        score++;
+//    }
+//    public int getScore() {
+//        return score;
+//    }
     public void incrementKills() {
         enemyKills++;
     }

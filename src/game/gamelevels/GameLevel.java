@@ -17,8 +17,7 @@ public abstract class GameLevel extends World {
     protected int requiredKills;
     protected String levelMessage = "";
     private List<String> levelMessages = new ArrayList<>();
-    /**  GameLevel with metadata
-     *  requirement.
+    /**  GameLevel with metadata requirement.
      * @param levelName name of the level
      * @param background path to background image
      * @param requiredKills number of kills to complete the level

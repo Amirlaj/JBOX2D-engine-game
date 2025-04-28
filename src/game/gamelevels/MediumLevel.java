@@ -20,7 +20,6 @@ public class MediumLevel extends GameLevel {
     /** two enemy, a jetpack, and a health pickup. */
     @Override
     public void initialize() {
-        // Create and position Player 1
         Player1 player = new Player1(this);
         setPlayer(player);
         player.setPosition(new Vec2(-10, -5));
@@ -30,10 +29,10 @@ public class MediumLevel extends GameLevel {
         ground.setPosition(new Vec2(0, -7));
 
         Jumper jumper = new Jumper(this);
-        jumper.setPosition(new Vec2(0, -6));
+        jumper.setPosition(new Vec2(0, -5));
         addEntity(jumper);
         MaxHealthPickup healthPickup = new MaxHealthPickup(this);
-        healthPickup.setPosition(new Vec2(7, -6));
+        healthPickup.setPosition(new Vec2(10, -5));
         addEntity(healthPickup);
         // Elevated platform
         Shape platformShape = new BoxShape(3, 0.5f);
@@ -41,10 +40,10 @@ public class MediumLevel extends GameLevel {
         topRightPlatform.setPosition(new Vec2(12, 3.5f));
         addEntity(topRightPlatform);
         // Stationary enemy on the platform
-        Enemy topRightEnemy = new Enemy(this, new Vec2(12, 4), "data/enemy1.png", 11, 13);
+        Enemy topRightEnemy = new Enemy(this, new Vec2(12, 4), "data/enemy1.png", 12, 12);
         addEntity(topRightEnemy);
 
-        Enemy groundEnemy = new Enemy(this, new Vec2(6, 7), "data/enemy1.png", 4, 8);
+        Enemy groundEnemy = new Enemy(this, new Vec2(0, 7), "data/enemy1.png", 4, 8);
         addEntity(groundEnemy);
     }
 }

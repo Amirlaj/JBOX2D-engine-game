@@ -20,7 +20,7 @@ public class EasyLevel extends GameLevel {
         Shape groundShape = new BoxShape(15, 0.5f);
         StaticBody ground = new StaticBody(this, groundShape);
         ground.setPosition(new Vec2(0, -7));
-        // Create enemies with patrol bounds
+        // enemies with patrol
         Enemy enemy1 = new Enemy(this, new Vec2(4, -6), "data/enemy1.png", 2, 7);
         Enemy enemy2 = new Enemy(this, new Vec2(-6, -6), "data/enemy2.png", -8, -4);
         addEntity(enemy1);

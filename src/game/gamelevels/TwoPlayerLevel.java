@@ -33,17 +33,22 @@ public class TwoPlayerLevel extends GameLevel {
         new StaticBody(this, platformShape).setPosition(new Vec2(5, 0));
         new StaticBody(this, platformShape).setPosition(new Vec2(7, -4));
         new StaticBody(this, platformShape).setPosition(new Vec2(-8, 2));
-
         // Create Player 2
         player2 = new Player2(this);
         player2.setPosition(new Vec2(5, -2));
         addEntity(player2);
         // max health
         MaxHealthPickup pickup = new MaxHealthPickup(this);
-        pickup.setPosition(new Vec2(6, -3));
+        pickup.setPosition(new Vec2(7, -3));
         addEntity(pickup);
         Jumper jetpack = new Jumper(this, new Vec2(-3, -1));
         addEntity(jetpack);
+        Jumper jetpack2 = new Jumper(this, new Vec2(11, -5.5f));
+        addEntity(jetpack2);
+        // 2end heath
+        MaxHealthPickup pickup2 = new MaxHealthPickup(this);
+        pickup2.setPosition(new Vec2(6.5f, 6f));
+        addEntity(pickup2);
     }
     /** Accessor for Player 2.
      * @return the Player2 instance */

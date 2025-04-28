@@ -1,11 +1,14 @@
 package game;
 
+import city.cs.engine.SoundClip;
 import game.characters.*;
 import game.gamelevels.*;
 import game.view.BackgroundView;
-
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /** * Main class to launch and control the Game.
  * Handles GUI, menu navigation, and switching between single and two-player modes. */
@@ -25,14 +28,21 @@ public class Game {
     private final String GAME = "Game"; // vuew for 1p mode
     private final String TWO_PLAYER = "TwoPlayer"; // menu for 2p mode
     private int levelNumber = 1; // the level that is currently loaded
-    private boolean isPaused = false ; // whether the game is paused
+    private boolean isPaused = false ;
+    private SoundClip gameMusic; // this is for music
+    private JButton muteButton; // mute button
+    private boolean isMuted = false; // whether the game is muted;
+    private JButton exitButton; // exit button
+
+
+    // whether the game is paused
     public static void main(String[] args) {
         new Game();
+
     }
     /** Constructor sets up the window, menu, and listeners. */
     public Game() {
         frame = new JFrame("City Game");
-
         // Setup layout
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
@@ -43,6 +53,10 @@ public class Game {
         // Setup pause button panel (hidden in menu)
         bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         pauseButton = new JButton("Pause");
+        muteButton = new JButton("Mute");
+        muteButton.setFocusable(false);
+        muteButton.addActionListener(e -> toggleMute());
+        bottomPanel.add(muteButton);
         pauseButton.setFocusable(false);
         pauseButton.addActionListener(e -> togglePause());
         bottomPanel.add(pauseButton);
@@ -55,6 +69,14 @@ public class Game {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setVisible(true);
+        Playmusic("data/gametheme.wav");
+
+        exitButton = new JButton("Exit to Menu");
+        exitButton.setFocusable(false);
+        exitButton.addActionListener(e -> exitToMenu());
+        bottomPanel.add(exitButton);
+
+
 
         // Keyboard pause toggle
         frame.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -68,7 +90,17 @@ public class Game {
 
         cardLayout.show(mainPanel, MENU);
     }
-    /** Pauses and unpauses current level.*/
+
+    private void Playmusic(String name) {
+        try {
+            gameMusic = new SoundClip(name);
+            gameMusic.loop();
+        } catch (UnsupportedAudioFileException|IOException|LineUnavailableException e) {
+            System.out.println(e);
+        }
+    }
+    /** Pauses and unpauses current level.
+     * mute button is the one below */
     private void togglePause() {
         if (isPaused) {
             currentLevel.start();
@@ -79,6 +111,24 @@ public class Game {
             pauseButton.setText("Resume");
             isPaused = true;
         }
+    }
+    private void toggleMute() {
+        if (gameMusic != null) {
+            if (isMuted) {
+                gameMusic.resume();
+                muteButton.setText("Mute");
+            } else {
+                gameMusic.stop();
+                muteButton.setText("Unmute");
+            }
+            isMuted = !isMuted;}
+    }
+    private void exitToMenu() {
+        if (currentLevel != null) {
+            currentLevel.stop();
+        }
+        cardLayout.show(mainPanel, MENU);
+        bottomPanel.setVisible(false);
     }
 
     /**  start menu with two buttons*/
@@ -107,8 +157,7 @@ public class Game {
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         buttonPanel.add(twoPlayerButton);
         menuPanel.add(buttonPanel, BorderLayout.CENTER);
-        return menuPanel;
-    }
+        return menuPanel;}
     /** Starts a single player game */
     private void startSinglePlayer() {
         loadLevel(levelNumber);
@@ -145,9 +194,7 @@ public class Game {
         loadViewForLevel(currentLevel, player1);
         setupCollision(player1);
         bottomPanel.setVisible(true);
-
-        currentLevel.start();
-    }
+        currentLevel.start();}
 
     /**Loads the appropriate level */
     private void loadLevel(int levelNum) {
@@ -168,12 +215,10 @@ public class Game {
     }
     private void setupPlayer1(Player1 player) {
         controller1 = new PlayerController(player);
-        frame.addKeyListener(controller1);
-    }
+        frame.addKeyListener(controller1);}
     private void setupPlayer2(Player2 player) {
         controller2 = new Player2Controller(player);
-        frame.addKeyListener(controller2);
-    }
+        frame.addKeyListener(controller2);}
     /**
      * Loads the BackgroundView with correct player(s) for the current level*/
     private void loadViewForLevel(GameLevel level, Player1 player) {

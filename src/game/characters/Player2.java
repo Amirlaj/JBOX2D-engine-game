@@ -10,7 +10,7 @@ import org.jbox2d.common.Vec2;
  * Includes movement, shooting, health tracking, and sprite orientation*/
 public class Player2 extends Walker {
     private static final float SPEED = 5;
-    private static final float JUMP = 13;
+    private static final float JUMP = 9;
     private int health = 3;
     private int score = 0;
     private int enemyKills = 0;
@@ -21,8 +21,8 @@ public class Player2 extends Walker {
     public Player2(GameLevel gameWorld) {
         super(gameWorld, new BoxShape(0.6f, 1));
         this.setPosition(new Vec2(4, -5));
-        rightImage = new BodyImage("data/player1.png", 3.5f);
-        leftImage = new BodyImage("data/player1_left.png", 3.5f);
+        rightImage = new BodyImage("data/player2_right.png", 3.5f);
+        leftImage = new BodyImage("data/player2_left.png", 3.5f);
         currentImage = rightImage;
         this.addImage(currentImage);
     }
